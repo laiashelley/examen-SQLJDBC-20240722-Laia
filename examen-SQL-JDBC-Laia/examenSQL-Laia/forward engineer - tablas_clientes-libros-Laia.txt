@@ -1,0 +1,50 @@
+-- MySQL Workbench Forward Engineering
+
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
+
+-- -----------------------------------------------------
+-- Schema examenSQLJDBC
+-- -----------------------------------------------------
+
+-- -----------------------------------------------------
+-- Schema examenSQLJDBC
+-- -----------------------------------------------------
+CREATE SCHEMA IF NOT EXISTS `examenSQLJDBC` DEFAULT CHARACTER SET utf8 ;
+USE `examenSQLJDBC` ;
+
+-- -----------------------------------------------------
+-- Table `examenSQLJDBC`.`libros`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `examenSQLJDBC`.`libros` (
+  `id_libros` INT NOT NULL AUTO_INCREMENT,
+  `titulo_libros` VARCHAR(45) NULL,
+  `autor_libros` VARCHAR(45) NULL,
+  `anyo_libros` INT NULL,
+  PRIMARY KEY (`id_libros`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `examenSQLJDBC`.`clientes`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `examenSQLJDBC`.`clientes` (
+  `id_clientes` INT NOT NULL AUTO_INCREMENT,
+  `nombre_clientes` VARCHAR(45) NULL,
+  `email_clientes` VARCHAR(45) NULL,
+  `libros_id_libros` INT NOT NULL,
+  PRIMARY KEY (`id_clientes`),
+  UNIQUE INDEX `email_clientes_UNIQUE` (`email_clientes` ASC) ,
+  INDEX `FK_clientes_libros` (`libros_id_libros` ASC) ,
+  CONSTRAINT `fk_clientes_libros`
+    FOREIGN KEY (`libros_id_libros`)
+    REFERENCES `examenSQLJDBC`.`libros` (`id_libros`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
